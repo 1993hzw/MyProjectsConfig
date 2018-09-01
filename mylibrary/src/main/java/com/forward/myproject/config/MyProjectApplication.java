@@ -1,6 +1,7 @@
 package com.forward.myproject.config;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -11,13 +12,10 @@ public class MyProjectApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
-            CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
-            strategy.setAppPackageName(getPackageName());
-            strategy.setAppChannel("" + getApplicationInfo().loadLabel(getPackageManager()));
-            CrashReport.initCrashReport(getApplicationContext(), APP_ID, true);
-        } else {
-            throw new RuntimeException("MyProjectApplication must be on debug mode");
-        }
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(this);
+        strategy.setAppPackageName(getPackageName());
+        strategy.setAppChannel("" + getApplicationInfo().loadLabel(getPackageManager()));
+        CrashReport.initCrashReport(getApplicationContext(), APP_ID, true);
+        Toast.makeText(this, "MyProjectApplication", Toast.LENGTH_LONG).show();
     }
 }
